@@ -3,7 +3,7 @@
     <string name="loginLabel">login:</string>
     <string name="passwordInvitation">password:</string>
     <string name="quitMess">quit</string>
-    <string name="continueMess">continue</string>
+    <string name="continueMess">Sign in</string>
     <string name="loginMessage">Please,enter login</string>
     <string name="passwordMess">Please,enter pass</string>
     <string name="welcome_message">Welcome to the 306App!You can choose any option suitable for you!Have a nice day!</string>
@@ -24,7 +24,7 @@
     <string name="Chat">open chat</string>
     <string name="Buy_bread">Buy bread</string>
     <string name="Take_the_garbage_out">Take out</string>
-    <string name="Registration">Register new user</string>
+    <string name="Registration">Sign up</string>
     <string name="Name">name:</string>
     <string name="Surname">surname</string>
     <string name="password">confirm password:</string>
@@ -39,4 +39,5 @@
     <string name="DeleteGroup">delete group</string>
     <string name="QuitFromGroup">quit from group</string>
     <string name="Open_conversations">Open conversations</string>
+    <string name="CheckBoxStaySigned">Stay signed in?</string>
 </resources>

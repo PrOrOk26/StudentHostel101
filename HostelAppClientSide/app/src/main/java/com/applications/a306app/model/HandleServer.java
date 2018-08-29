@@ -64,7 +64,7 @@ public class HandleServer extends Handler {
 
         public static final int SETINSERTCONVERSATIONMESSAGE=18;
 
-        public static final String IP_ADDRESS="192.168.0.102";
+        public static final String IP_ADDRESS="192.168.0.108";
     }
 
 
