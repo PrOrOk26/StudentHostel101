@@ -2,13 +2,16 @@ package com.applications.a306app.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.util.Log;
@@ -30,12 +33,25 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordView;
     private Handler myHandler;
     private Button registrationButton;
+    private CheckBox rememberSignInBox;
+
+
+    private static final String LOGIN="LOGIN";
+    private static final String PASSWORD="PASSWORD";
+    private static final String BOX_STATE="BOX_STATE";
+
+
 
 
     @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
+        loginView=(EditText)findViewById(R.id.editText7);
+        passwordView=(EditText)findViewById(R.id.editText8);
+        rememberSignInBox=findViewById(R.id.checkBoxSignIn);
 
         myHandler=new HandleServer()
         {
@@ -50,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                         String testString = bundle.getString("validation");
                         if(testString.equals(HandleServerResponseConstants.TAGS_LOGIN_VALIDATION_RESPONCE_ALLOWED)) {
                             Toast.makeText(getApplicationContext(), testString, Toast.LENGTH_SHORT).show();
+
                             Intent intent =new Intent(getApplicationContext(),TasksActivity.class);
                             startActivity(intent);
                         }
@@ -61,7 +78,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
-        setContentView(R.layout.activity_login);
 
         registrationButton=(Button)findViewById(R.id.registration);
 
@@ -69,6 +85,11 @@ public class LoginActivity extends AppCompatActivity {
                 Intent registrationIntent=new Intent(getApplicationContext(),RegistrationActivity.class);
                 startActivity(registrationIntent);
         });
+
+        if(isRememberBoxChecked())
+        {
+            validateUser();
+        }
     }
 
     @Override
@@ -80,32 +101,30 @@ public class LoginActivity extends AppCompatActivity {
         UsersDB.truncateHost();
     }
 
-     //my onClickListener(it is bounded in UI Editor)
+     //my onClickListener(it is bounded in the UI Editor)
 
     public void checkInputLoginPassword(View view)
     {
 
-        loginView=(EditText)findViewById(R.id.editText7);
-        passwordView=(EditText)findViewById(R.id.editText8);
+        String loginSt=loginView.getText().toString();
+        String passwordSt=passwordView.getText().toString();
 
         if(areWarningsExist())
             return;
 
-         String loginSt=loginView.getText().toString();
-         String passwordSt=passwordView.getText().toString();
+        if(rememberSignInBox.isChecked())
+        {
 
-        List<String> dataToSend=new ArrayList<>();
-        dataToSend.add(loginSt);
-        dataToSend.add(passwordSt);
+            SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(LOGIN,loginSt);
+            editor.putString(PASSWORD,passwordSt);
+            editor.putBoolean(BOX_STATE,true);
+            editor.apply();
 
-        Log.d("Password",passwordSt);
+        }
 
-        NetworkService service=new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
-
-         Thread request=new Thread(new UserValidationRequestRunnable(service.getMySocket(),myHandler,dataToSend));
-         Thread response=new Thread(new UserValidationResponseRunnable(service.getMySocket(),myHandler));
-         request.start();
-         response.start();
+        validateUser();
 
     }
 
@@ -118,4 +137,41 @@ public class LoginActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    private boolean isRememberBoxChecked()
+    {
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        boolean checkBoxState = sharedPref.getBoolean(BOX_STATE, false);
+        rememberSignInBox.setChecked(checkBoxState);
+
+        if(checkBoxState)
+        {
+            loginView.setText(sharedPref.getString(LOGIN,null));
+            passwordView.setText(sharedPref.getString(PASSWORD,null));
+            return true;
+        }
+        return false;
+    }
+
+    private void validateUser()
+    {
+        String loginSt=loginView.getText().toString();
+        String passwordSt=passwordView.getText().toString();
+
+        List<String> dataToSend=new ArrayList<>();
+        dataToSend.add(loginSt);
+        dataToSend.add(passwordSt);
+
+        Log.d("Password",passwordSt);
+
+        NetworkService service=new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
+
+        Thread request=new Thread(new UserValidationRequestRunnable(service.getMySocket(),myHandler,dataToSend));
+        Thread response=new Thread(new UserValidationResponseRunnable(service.getMySocket(),myHandler));
+        request.start();
+        response.start();
+    }
+
+
+
 }
