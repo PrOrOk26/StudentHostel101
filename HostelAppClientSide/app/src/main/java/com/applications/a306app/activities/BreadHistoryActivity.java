@@ -24,7 +24,7 @@ public class BreadHistoryActivity extends AppCompatActivity {
     private RecyclerView fullBreadHistory;
     private BreadViewAdapter myBreadAdapter;
 
-    private List<UserActivity> myBreadBuff=new ArrayList<>();
+    private List<UserActivity> myBreadBuff = new ArrayList<>();
 
     private NetworkService service;
     private Handler myHandler;
@@ -35,19 +35,19 @@ public class BreadHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bread_history);
 
-        myHandler=new HandleServer();
+        myHandler = new HandleServer();
 
-        myBreadBuff=new ArrayList<>();
+        myBreadBuff = new ArrayList<>();
 
-        fullBreadHistory=findViewById(R.id.breadHistoryRecyclerView);
+        fullBreadHistory = findViewById(R.id.breadHistoryRecyclerView);
 
         fullBreadHistory.setLayoutManager(new LinearLayoutManager(this));
 
-        myBreadAdapter=new BreadViewAdapter(this,myBreadBuff);
+        myBreadAdapter = new BreadViewAdapter(this,myBreadBuff);
 
         fullBreadHistory.setAdapter(myBreadAdapter);
 
-        if(UsersDB.getHostUser().getGroup().length()>0&& UserActivityDB.getSize()==0) {
+        if(UsersDB.getHostUser().getGroup().length() > 0 && UserActivityDB.getSize() == 0) {
             service = new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
             Thread requestBread = new Thread(new RetrieveBreadHistoryRequestRunnable(service.getMySocket(), HandleServer.HandleServerResponseConstants.BREAD_GARBAGE_REQUEST_TYPE_ALL));
             Thread responseBread = new Thread(new RetrieveBreadHistoryResponceRunnable(service.getMySocket(), myHandler));

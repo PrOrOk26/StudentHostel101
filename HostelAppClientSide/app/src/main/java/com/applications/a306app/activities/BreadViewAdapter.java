@@ -39,9 +39,9 @@ import java.util.List;
         @Override
         public int getItemViewType(int position) {
 
-            UserActivity myActivity=mUserActivityList.get(position);
+            UserActivity myActivity = mUserActivityList.get(position);
 
-            if(myActivity.getTYPE()== HandleServer.HandleServerResponseConstants.SETGETBREADHISTORYMESSAGE)
+            if(myActivity.getTYPE() == HandleServer.HandleServerResponseConstants.SETGETBREADHISTORYMESSAGE)
             {
                 return MESSAGE_BREAD;
             }

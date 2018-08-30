@@ -73,24 +73,23 @@ public class TasksActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasks);
 
-
         UserActivityDB.clearDB();
 
-        garbageCurrent=findViewById(R.id.garbage);
-        breadCurrent=findViewById(R.id.bread);
-        isInGroup=findViewById(R.id.isInGroupTextView);
+        garbageCurrent = findViewById(R.id.garbage);
+        breadCurrent = findViewById(R.id.bread);
+        isInGroup = findViewById(R.id.isInGroupTextView);
 
-        insertBreadButton=findViewById(R.id.BuyBreadButton);
-        insertGarbageButton=findViewById(R.id.TakeGarbageOutButton);
+        insertBreadButton = findViewById(R.id.BuyBreadButton);
+        insertGarbageButton = findViewById(R.id.TakeGarbageOutButton);
 
-        showBreadHistoryButton=findViewById(R.id.showBreadHistoryButton);
-        showGarbageHistoryButton=findViewById(R.id.ShowGarbageHistoryButton);
+        showBreadHistoryButton = findViewById(R.id.showBreadHistoryButton);
+        showGarbageHistoryButton = findViewById(R.id.ShowGarbageHistoryButton);
 
         mdrawerLayout = findViewById(R.id.drawer_layout);
 
         //dialog when user tries to insert his action
 
-        myDialogBuider=new AlertDialog.Builder(this);
+        myDialogBuider = new AlertDialog.Builder(this);
         myDialogBuider.setTitle("Confirm action");
 
         myDialogBuider.setNegativeButton("Decline", (dialogInterface,i) -> dialogInterface.cancel());
@@ -102,6 +101,8 @@ public class TasksActivity extends AppCompatActivity{
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_clear_all_black_24dp);
 
+        final NavigationView myView = findViewById(R.id.nav_view);
+
         myHandler=new HandleServer()
         {
             @Override
@@ -111,44 +112,42 @@ public class TasksActivity extends AppCompatActivity{
                 {
                     case HandleServerResponseConstants.SETGARBAGEMESSAGE:
                     {
-                        Bundle bundle=msg.getData();
-                        String testString=bundle.getString("garbage");
+                        Bundle bundle = msg.getData();
+                        String testString = bundle.getString("garbage");
                         garbageCurrent.setText(testString);
                         break;
                     }
                     case HandleServerResponseConstants.SETBREADMESSAGE:
                     {
-                        Bundle bundle=msg.getData();
-                        String testString=bundle.getString("bread");
+                        Bundle bundle = msg.getData();
+                        String testString = bundle.getString("bread");
                         breadCurrent.setText(testString);
                         break;
                     }
                     case HandleServerResponseConstants.SETGROUPVALIDATIONMESSAGE:
                     {
-                        Bundle bundle=msg.getData();
-                        String testString=bundle.getString("groupvalidation");
+                        Bundle bundle = msg.getData();
+                        String testString = bundle.getString("groupvalidation");
                         isInGroup.setText(testString);
                         break;
                     }
                     case HandleServerResponseConstants.SETGETBREADHISTORYMESSAGE:
                     {
-                        Bundle bundle=msg.getData();
-                        String testString=bundle.getString(XMLConstants.TAGS_REQUEST_BREAD_HISTORY);
+                        Bundle bundle = msg.getData();
+                        String testString = bundle.getString(XMLConstants.TAGS_REQUEST_BREAD_HISTORY);
                         myBreadAdapter.notifyDataSetChanged();
                         break;
                     }
                     case HandleServerResponseConstants.SETGETGARBAGEHISTORYMESSAGE:
                     {
                         Bundle bundle=msg.getData();
-                        String testString=bundle.getString(XMLConstants.TAGS_REQUEST_GARBAGE_HISTORY);
+                        String testString = bundle.getString(XMLConstants.TAGS_REQUEST_GARBAGE_HISTORY);
                         myGarbageAdapter.notifyDataSetChanged();
                         break;
                     }
                 }
             }
         };
-
-        final NavigationView myView=findViewById(R.id.nav_view);
 
         myView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -324,7 +323,7 @@ public class TasksActivity extends AppCompatActivity{
             e.printStackTrace();
         }
 
-        if(UsersDB.getHostUser().getGroup().length()>0&&UserActivityDB.getSize()==0)
+        if(UsersDB.getHostUser().getGroup().length() > 0 && UserActivityDB.getSize() == 0)
         {
             service = new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
             Thread requestBread = new Thread(new RetrieveBreadHistoryRequestRunnable(service.getMySocket(), HandleServer.HandleServerResponseConstants.BREAD_GARBAGE_REQUEST_TYPE_ALL));
