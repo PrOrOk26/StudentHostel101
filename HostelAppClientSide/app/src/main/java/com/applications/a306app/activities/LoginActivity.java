@@ -93,12 +93,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onRestart() {
+        super.onRestart();
 
         //we must truncate DB in case user wants to change his account
         UsersDB.truncate();
         UsersDB.truncateHost();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 
      //my onClickListener(it is bounded in the UI Editor)
