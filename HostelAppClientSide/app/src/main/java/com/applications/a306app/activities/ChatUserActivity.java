@@ -61,7 +61,7 @@ public class ChatUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_user);
 
-        messagesToShow=new ArrayList<>();
+        messagesToShow = new ArrayList<>();
 
         myUserChatView = findViewById(R.id.recyclerview_message_list);
         myUserChatView.setLayoutManager(new LinearLayoutManager(this));
@@ -71,7 +71,7 @@ public class ChatUserActivity extends AppCompatActivity {
         toSend = findViewById(R.id.button_chatbox_send);
         insertMessage = findViewById(R.id.edittext_chatbox);
 
-        conversationId=getIntent().getIntExtra(XMLConstants.TAGS_CONVERSATION,0);
+        conversationId = getIntent().getIntExtra(XMLConstants.TAGS_CONVERSATION,0);
 
         myUserChatViewHandler = new HandleServer() {
             @Override

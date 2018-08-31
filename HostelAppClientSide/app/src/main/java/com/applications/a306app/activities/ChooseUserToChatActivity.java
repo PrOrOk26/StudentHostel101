@@ -38,15 +38,15 @@ public class ChooseUserToChatActivity extends AppCompatActivity implements OnVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_user_to_chat);
 
-        usersToDisplay=new ArrayList<>();
+        usersToDisplay = new ArrayList<>();
 
-        myUsersView=findViewById(R.id.recyclerview_choose_user);
-        myAdapterToDisplay=new UsersToDisplayAdapter(this,usersToDisplay,this);
+        myUsersView = findViewById(R.id.recyclerview_choose_user);
+        myAdapterToDisplay = new UsersToDisplayAdapter(this,usersToDisplay,this);
 
         myUsersView.setLayoutManager(new LinearLayoutManager(this));
         myUsersView.setAdapter(myAdapterToDisplay);
 
-        myHandler=new HandleServer()
+        myHandler = new HandleServer()
         {
         @Override
         public void handleMessage(android.os.Message msg) {
@@ -82,10 +82,10 @@ public class ChooseUserToChatActivity extends AppCompatActivity implements OnVie
 
     private void getUsersFromServer()
     {
-        NetworkService service=new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
+        NetworkService service = new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
 
-        Thread request=new Thread(new GetAllUsersToMessageRequestRunnable(service.getMySocket()));
-        Thread response=new Thread(new GetAllUsersToMessageResponceRunnable(service.getMySocket(),myHandler));
+        Thread request = new Thread(new GetAllUsersToMessageRequestRunnable(service.getMySocket()));
+        Thread response = new Thread(new GetAllUsersToMessageResponceRunnable(service.getMySocket(),myHandler));
         request.start();
         response.start();
     }
@@ -93,7 +93,7 @@ public class ChooseUserToChatActivity extends AppCompatActivity implements OnVie
     @Override
     public void onViewClick(int item)
     {
-        Intent showUserChat=new Intent(getApplicationContext(),ChatUserActivity.class);
+        Intent showUserChat = new Intent(getApplicationContext(),ChatUserActivity.class);
         showUserChat.putExtra(XMLConstants.TAGS_CONVERSATION,item);
         startActivity(showUserChat);
     }

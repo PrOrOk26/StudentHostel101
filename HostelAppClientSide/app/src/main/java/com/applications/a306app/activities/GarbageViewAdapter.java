@@ -25,7 +25,7 @@ public class GarbageViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<UserActivity> mUserActivityList;
 
 
-    private static final int MESSAGE_GARBAGE=1;
+    private static final int MESSAGE_GARBAGE = 1;
 
 
     public GarbageViewAdapter(Context context, List<UserActivity> mUserList) {
@@ -42,9 +42,9 @@ public class GarbageViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public int getItemViewType(int position) {
 
-        UserActivity myActivity=mUserActivityList.get(position);
+        UserActivity myActivity = mUserActivityList.get(position);
 
-       if(myActivity.getTYPE()== HandleServer.HandleServerResponseConstants.SETGETGARBAGEHISTORYMESSAGE) {
+       if(myActivity.getTYPE() == HandleServer.HandleServerResponseConstants.SETGETGARBAGEHISTORYMESSAGE) {
             return MESSAGE_GARBAGE;
         }
         return -1;

@@ -79,7 +79,7 @@ public class CreateUpdateGroupActivity extends AppCompatActivity{
             setViewsVisible();
 
 
-        createGroupButton.setOnClickListener((View view)->{
+        createGroupButton.setOnClickListener((View view) -> {
 
                 if(areWarningsCreateGroupExist())
                     return;
@@ -92,7 +92,7 @@ public class CreateUpdateGroupActivity extends AppCompatActivity{
 
                 Log.d("Group:", group);
 
-                if (group != UsersDB.getHostUserGroup()) {
+                if (!group.equals(UsersDB.getHostUserGroup())) {
                     NetworkService service = new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
 
                     Thread request = new Thread(new CreateGroupRequestRunnable(service.getMySocket(), myHandler, dataToSend));
@@ -104,7 +104,7 @@ public class CreateUpdateGroupActivity extends AppCompatActivity{
 
         });
 
-        addUserButton.setOnClickListener((View view)->{
+        addUserButton.setOnClickListener((View view) -> {
 
                 if(areWarningsAddUserExist())
                     return;
@@ -133,7 +133,7 @@ public class CreateUpdateGroupActivity extends AppCompatActivity{
         });
 
 
-        quitFromGroupButton.setOnClickListener((View view)-> {
+        quitFromGroupButton.setOnClickListener((View view) -> {
                 try {
                     if (UsersDB.getHostUserGroup().length() > 0) {
                         NetworkService service = new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
@@ -153,7 +153,7 @@ public class CreateUpdateGroupActivity extends AppCompatActivity{
 
 
     private void setViewsVisible() {
-        if(UsersDB.getHostUserGroup().length()>0) {
+        if(UsersDB.getHostUserGroup().length() > 0) {
             TextView textView1 = findViewById(R.id.addFriendsText);
             textView1.setVisibility(View.VISIBLE);
             addUserButton.setVisibility(View.VISIBLE);
@@ -164,7 +164,7 @@ public class CreateUpdateGroupActivity extends AppCompatActivity{
 
     private boolean areWarningsCreateGroupExist()
     {
-        if(createGroupEditText.getText().toString().length()==0)
+        if(createGroupEditText.getText().toString().length() == 0)
         {
             Toast.makeText(getApplicationContext(),"Please,fill in the lines!", Toast.LENGTH_SHORT).show();
             return true;
@@ -174,7 +174,7 @@ public class CreateUpdateGroupActivity extends AppCompatActivity{
 
     private boolean areWarningsAddUserExist()
     {
-        if(addUserEditText.getText().toString().length()==0)
+        if(addUserEditText.getText().toString().length() == 0)
         {
             Toast.makeText(getApplicationContext(),"Please,fill in the lines!", Toast.LENGTH_SHORT).show();
             return true;

@@ -27,7 +27,7 @@ public class GarbageHistoryActivity extends AppCompatActivity {
 
     private GarbageViewAdapter myGarbageAdapter;
 
-    private List<UserActivity> myGarbageBuff=new ArrayList<>();
+    private List<UserActivity> myGarbageBuff = new ArrayList<>();
 
     private NetworkService service;
     private Handler myHandler;
@@ -38,19 +38,19 @@ public class GarbageHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_garbage_history);
 
-        myHandler=new HandleServer();
+        myHandler = new HandleServer();
 
-        myGarbageBuff=new ArrayList<>();
+        myGarbageBuff = new ArrayList<>();
 
-        fullGarbageHistory =findViewById(R.id.garbageHistoryRecyclerView);
+        fullGarbageHistory = findViewById(R.id.garbageHistoryRecyclerView);
 
         fullGarbageHistory.setLayoutManager(new LinearLayoutManager(this));
 
-        myGarbageAdapter =new GarbageViewAdapter(this,myGarbageBuff);
+        myGarbageAdapter = new GarbageViewAdapter(this,myGarbageBuff);
 
         fullGarbageHistory.setAdapter(myGarbageAdapter);
 
-        if(UsersDB.getHostUser().getGroup().length()>0&& UserActivityDB.getSize()==0) {
+        if(UsersDB.getHostUser().getGroup().length() > 0 && UserActivityDB.getSize() == 0) {
             service = new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
             Thread requestGarbage = new Thread(new RetrieveGarbageHistoryRequestRunnable(service.getMySocket(), HandleServer.HandleServerResponseConstants.BREAD_GARBAGE_REQUEST_TYPE_ALL));
             Thread responseGarbage = new Thread(new RetrieveGarbageHistoryResponceRunnable(service.getMySocket(), myHandler));

@@ -38,7 +38,7 @@ public class ChatUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         //Determines the appropriate ViewType according to the sender of the message.
         @Override
         public int getItemViewType(int position) {
-            PrivateMessage message=mMessageList.get(position);
+            PrivateMessage message = mMessageList.get(position);
 
             if(message.getSender().getLogin().equals(UsersDB.getHostUser().getLogin()))
             {
