@@ -103,7 +103,7 @@ public class TasksActivity extends AppCompatActivity{
 
         final NavigationView myView = findViewById(R.id.nav_view);
 
-        myHandler=new HandleServer()
+        myHandler = new HandleServer()
         {
             @Override
             public void handleMessage(Message msg)
@@ -140,7 +140,7 @@ public class TasksActivity extends AppCompatActivity{
                     }
                     case HandleServerResponseConstants.SETGETGARBAGEHISTORYMESSAGE:
                     {
-                        Bundle bundle=msg.getData();
+                        Bundle bundle = msg.getData();
                         String testString = bundle.getString(XMLConstants.TAGS_REQUEST_GARBAGE_HISTORY);
                         myGarbageAdapter.notifyDataSetChanged();
                         break;
@@ -160,19 +160,19 @@ public class TasksActivity extends AppCompatActivity{
                 {
                     case "Manage group":
                     {
-                        Intent groupCreation=new Intent(getApplicationContext(),CreateUpdateGroupActivity.class);
+                        Intent groupCreation = new Intent(getApplicationContext(),CreateUpdateGroupActivity.class);
                         startActivity(groupCreation);
                         return true;
                     }
                     case "Open chat":
                     {
-                        Intent chat=new Intent(getApplicationContext(),ChatActivity.class);
+                        Intent chat = new Intent(getApplicationContext(),ChatActivity.class);
                         startActivity(chat);
                         return true;
                     }
                     case "Open conversations":
                     {
-                        Intent conversations=new Intent(getApplicationContext(),ChooseUserToChatActivity.class);
+                        Intent conversations = new Intent(getApplicationContext(),ChooseUserToChatActivity.class);
                         startActivity(conversations);
                         return true;
                     }
@@ -184,16 +184,16 @@ public class TasksActivity extends AppCompatActivity{
 
         insertGarbageButton.setOnClickListener((View v) ->  {
 
-                if(UsersDB.getHostUser().getGroup().length()<1)
+                if(UsersDB.getHostUser().getGroup().length() < 1)
                 {
                     Toast.makeText(getApplicationContext(),"You are not in a group yet!",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                final UserActivity activityToInsert=new UserActivity(HandleServer.HandleServerResponseConstants.SETGETGARBAGEHISTORYMESSAGE);
+                final UserActivity activityToInsert = new UserActivity(HandleServer.HandleServerResponseConstants.SETGETGARBAGEHISTORYMESSAGE);
 
 
-                myDialogBuider.setPositiveButton("Confirm", (dialogInterface,i)-> {
+                myDialogBuider.setPositiveButton("Confirm", (dialogInterface,i) -> {
 
                         activityToInsert.setDate(new Date());
                         activityToInsert.setPerformerLogin(UsersDB.getHostUser().getLogin());
@@ -205,10 +205,10 @@ public class TasksActivity extends AppCompatActivity{
 
                         myGarbageAdapter.notifyDataSetChanged();
 
-                        NetworkService service=new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
+                        NetworkService service = new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
 
-                        Thread request=new Thread(new InsertGarbageRequestRunnable(service.getMySocket(),activityToInsert));
-                        Thread response=new Thread(new InsertGarbageResponceRunnable(service.getMySocket(),myHandler));
+                        Thread request = new Thread(new InsertGarbageRequestRunnable(service.getMySocket(),activityToInsert));
+                        Thread response = new Thread(new InsertGarbageResponceRunnable(service.getMySocket(),myHandler));
                         request.start();
                         response.start();
                         dialogInterface.cancel();
@@ -222,20 +222,20 @@ public class TasksActivity extends AppCompatActivity{
                     myDialogBuider.setMessage("You are next to take garbage,do you want to confirm action?");
 
 
-                AlertDialog dialog=myDialogBuider.create();
+                AlertDialog dialog = myDialogBuider.create();
                 dialog.show();
 
         });
 
         insertBreadButton.setOnClickListener((View v) -> {
 
-                if(UsersDB.getHostUser().getGroup().length()<1)
+                if(UsersDB.getHostUser().getGroup().length() < 1)
                 {
                     Toast.makeText(getApplicationContext(),"You are not in a group yet!",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                final UserActivity activityToInsert=new UserActivity(HandleServer.HandleServerResponseConstants.SETGETBREADHISTORYMESSAGE);
+                final UserActivity activityToInsert = new UserActivity(HandleServer.HandleServerResponseConstants.SETGETBREADHISTORYMESSAGE);
 
 
                 myDialogBuider.setPositiveButton("Confirm",(dialogInterface,i) -> {
@@ -251,10 +251,10 @@ public class TasksActivity extends AppCompatActivity{
 
                         myBreadAdapter.notifyDataSetChanged();
 
-                        NetworkService service=new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
+                        NetworkService service = new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
 
-                        Thread request=new Thread(new InsertBreadRequestRunnable(service.getMySocket(),activityToInsert));
-                        Thread response=new Thread(new InsertBreadResponceRunnable(service.getMySocket(),myHandler));
+                        Thread request = new Thread(new InsertBreadRequestRunnable(service.getMySocket(),activityToInsert));
+                        Thread response = new Thread(new InsertBreadResponceRunnable(service.getMySocket(),myHandler));
                         request.start();
                         response.start();
                         dialogInterface.cancel();
@@ -268,34 +268,34 @@ public class TasksActivity extends AppCompatActivity{
                     myDialogBuider.setMessage("You are next to buy bread,do you want to confirm action?");
 
 
-                AlertDialog dialog=myDialogBuider.create();
+                AlertDialog dialog = myDialogBuider.create();
                 dialog.show();
 
         });
 
-        showGarbageHistoryButton.setOnClickListener((View v)-> {
-                   Intent goToGarbage=new Intent(getApplicationContext(),GarbageHistoryActivity.class);
+        showGarbageHistoryButton.setOnClickListener((View v) -> {
+                   Intent goToGarbage = new Intent(getApplicationContext(),GarbageHistoryActivity.class);
                    startActivity(goToGarbage);
 
         });
 
-        showBreadHistoryButton.setOnClickListener((View v)->{
-                Intent goToBread=new Intent(getApplicationContext(),BreadHistoryActivity.class);
+        showBreadHistoryButton.setOnClickListener((View v) -> {
+                Intent goToBread = new Intent(getApplicationContext(),BreadHistoryActivity.class);
                 startActivity(goToBread);
 
         });
 
-        breadRecylerView=findViewById(R.id.breadRecyclerView);
-        garbageRecyclerView=findViewById(R.id.garbageRecyclerView);
+        breadRecylerView = findViewById(R.id.breadRecyclerView);
+        garbageRecyclerView = findViewById(R.id.garbageRecyclerView);
 
         breadRecylerView.setLayoutManager(new LinearLayoutManager(this));
         garbageRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        myBreadBuff=new LinkedList<>();
-        myGarbageBuff=new LinkedList<>();
+        myBreadBuff = new LinkedList<>();
+        myGarbageBuff = new LinkedList<>();
 
-        myBreadAdapter=new BreadViewAdapter(this, myBreadBuff);
-        myGarbageAdapter=new GarbageViewAdapter(this, myGarbageBuff);
+        myBreadAdapter = new BreadViewAdapter(this, myBreadBuff);
+        myGarbageAdapter = new GarbageViewAdapter(this, myGarbageBuff);
 
         breadRecylerView.setAdapter(myBreadAdapter);
         garbageRecyclerView.setAdapter(myGarbageAdapter);
@@ -308,10 +308,10 @@ public class TasksActivity extends AppCompatActivity{
     protected void onStart() {
 
         super.onStart();
-        NetworkService service=new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
+        NetworkService service = new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
 
-        Thread request=new Thread(new CheckIfUserInGroupRequestRunnable(service.getMySocket(),myHandler));
-        Thread response=new Thread(new CheckIfUserInGroupResponceRunnable(service.getMySocket(),myHandler));
+        Thread request = new Thread(new CheckIfUserInGroupRequestRunnable(service.getMySocket(),myHandler));
+        Thread response = new Thread(new CheckIfUserInGroupResponceRunnable(service.getMySocket(),myHandler));
         request.start();
         response.start();
 

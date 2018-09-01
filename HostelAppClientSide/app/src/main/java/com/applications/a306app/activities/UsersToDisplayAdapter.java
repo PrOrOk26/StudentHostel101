@@ -25,13 +25,13 @@ public class UsersToDisplayAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private OnViewHolderClickListener myListenerToChatUser;
 
 
-    private static final int MESSAGE_USER_TO_DISPLAY=1;
+    private static final int MESSAGE_USER_TO_DISPLAY = 1;
 
 
     public UsersToDisplayAdapter(Context context, List<User> mUserList,OnViewHolderClickListener myListenerToChatUser) {
         this.mContext = context;
         this.mUsersList = mUserList;
-        this.myListenerToChatUser=myListenerToChatUser;
+        this.myListenerToChatUser = myListenerToChatUser;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class UsersToDisplayAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public int getItemViewType(int position) {
 
-        User myUserToDisplay=mUsersList.get(position);
+        User myUserToDisplay = mUsersList.get(position);
 
         return MESSAGE_USER_TO_DISPLAY;
     }
@@ -94,9 +94,7 @@ public class UsersToDisplayAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
             //when our ViewHolder is clicked,we must move to another activity to chat user
-            userText.setOnClickListener((View v)->{
-                myListenerToChatUser.onViewClick(myUser.getConversationsIds().get(0));
-            });
+            userText.setOnClickListener((View v) -> myListenerToChatUser.onViewClick(myUser.getConversationsIds().get(0)));
 
         }
     }

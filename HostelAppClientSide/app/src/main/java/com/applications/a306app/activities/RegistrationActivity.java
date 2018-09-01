@@ -42,10 +42,10 @@ public class RegistrationActivity extends AppCompatActivity {
     private TextInputLayout nameLayout;
     private TextInputLayout surnameLayout;
 
-    private static final int MIN_PASSWORD=5;
-    private static final int MAX_PASSWORD=44;
-    private static final int MAX_LOGIN=15;
-    private static final int MAX_NAME_SURNAME=19;
+    private static final int MIN_PASSWORD = 5;
+    private static final int MAX_PASSWORD = 44;
+    private static final int MAX_LOGIN = 15;
+    private static final int MAX_NAME_SURNAME = 19;
 
     private Handler myHandler;
 
@@ -55,19 +55,19 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        registerButton=(Button)findViewById(R.id.registerNewUser);
+        registerButton = (Button)findViewById(R.id.registerNewUser);
 
-        loginEdit=(TextInputEditText)findViewById(R.id.Ilogin);
-        passwordEdit=(TextInputEditText)findViewById(R.id.Ipassword);
-        confirmPasswordEdit=(TextInputEditText)findViewById(R.id.IconfirmPassword);
-        nameEdit=(TextInputEditText)findViewById(R.id.Iname);
-        surnameEdit=(TextInputEditText)findViewById(R.id.ISurname);
+        loginEdit = (TextInputEditText)findViewById(R.id.Ilogin);
+        passwordEdit = (TextInputEditText)findViewById(R.id.Ipassword);
+        confirmPasswordEdit = (TextInputEditText)findViewById(R.id.IconfirmPassword);
+        nameEdit = (TextInputEditText)findViewById(R.id.Iname);
+        surnameEdit = (TextInputEditText)findViewById(R.id.ISurname);
 
-        loginLayout=(TextInputLayout) findViewById(R.id.loginInput);
-        passwordLayout=(TextInputLayout) findViewById(R.id.passwordInput);
-        confirmPasswordLayout=(TextInputLayout) findViewById(R.id.confirmPassword);
-        nameLayout=(TextInputLayout) findViewById(R.id.nameInput);
-        surnameLayout=(TextInputLayout) findViewById(R.id.surnameInput);
+        loginLayout = (TextInputLayout) findViewById(R.id.loginInput);
+        passwordLayout = (TextInputLayout) findViewById(R.id.passwordInput);
+        confirmPasswordLayout = (TextInputLayout) findViewById(R.id.confirmPassword);
+        nameLayout = (TextInputLayout) findViewById(R.id.nameInput);
+        surnameLayout = (TextInputLayout) findViewById(R.id.surnameInput);
 
         loginLayout.setHint("login");
         passwordLayout.setHint("password");
@@ -76,7 +76,7 @@ public class RegistrationActivity extends AppCompatActivity {
         surnameLayout.setHint("surname");
 
 
-        myHandler=new HandleServer(){
+        myHandler = new HandleServer(){
             @Override
             public void handleMessage(Message msg)
             {
@@ -106,22 +106,22 @@ public class RegistrationActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String password1=passwordEdit.getText().toString();
-                String password2=confirmPasswordEdit.getText().toString();
-                if(password1.length()<MIN_PASSWORD)
+                String password1 = passwordEdit.getText().toString();
+                String password2 = confirmPasswordEdit.getText().toString();
+                if(password1.length() < MIN_PASSWORD)
                {
                     passwordLayout.setError("at least 5 symbols needed");
                }
-              if(password2.length()<MIN_PASSWORD)
+              if(password2.length() < MIN_PASSWORD)
               {
                     confirmPasswordLayout.setError("at least 5 symbols needed");
                     return;
                 }
-                if(password1.length()>MAX_PASSWORD)
+                if(password1.length() > MAX_PASSWORD)
                 {
                     passwordLayout.setError("password is too long");
                 }
-                if(password2.length()>MAX_PASSWORD)
+                if(password2.length() > MAX_PASSWORD)
                 {
                     confirmPasswordLayout.setError("password is too long");
                     return;
@@ -152,22 +152,22 @@ public class RegistrationActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String password1=passwordEdit.getText().toString();
-                String password2=confirmPasswordEdit.getText().toString();
-                if(password1.length()<MIN_PASSWORD)
+                String password1 = passwordEdit.getText().toString();
+                String password2 = confirmPasswordEdit.getText().toString();
+                if(password1.length() < MIN_PASSWORD)
                 {
                     passwordLayout.setError("at least 5 symbols needed");
                 }
-                if(password2.length()<MIN_PASSWORD)
+                if(password2.length() < MIN_PASSWORD)
                 {
                     confirmPasswordLayout.setError("at least 5 symbols needed");
                     return;
                 }
-                if(password1.length()>MAX_PASSWORD)
+                if(password1.length() > MAX_PASSWORD)
                 {
                     passwordLayout.setError("password is too long");
                 }
-                if(password2.length()>MAX_PASSWORD)
+                if(password2.length() > MAX_PASSWORD)
                 {
                     confirmPasswordLayout.setError("password is too long");
                     return;
@@ -198,8 +198,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                   String login=loginEdit.getText().toString();
-                   if(login.length()>MAX_LOGIN)
+                   String login = loginEdit.getText().toString();
+                   if(login.length() > MAX_LOGIN)
                    {
                        loginLayout.setError("login is too long");
                    }
@@ -223,8 +223,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                   String name=nameEdit.getText().toString();
-                   if(name.length()>MAX_NAME_SURNAME)
+                   String name = nameEdit.getText().toString();
+                   if(name.length() > MAX_NAME_SURNAME)
                    {
                        nameLayout.setError("name is too long");
                    }
@@ -247,8 +247,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String surname=surnameEdit.getText().toString();
-                if(surname.length()>MAX_NAME_SURNAME)
+                String surname = surnameEdit.getText().toString();
+                if(surname.length() > MAX_NAME_SURNAME)
                 {
                     surnameLayout.setError("surname is too long");
                 }
@@ -260,26 +260,26 @@ public class RegistrationActivity extends AppCompatActivity {
         });
 
 
-        registerButton.setOnClickListener((View view)-> {
+        registerButton.setOnClickListener((View view) -> {
                 if(checkWarnings())
                     return;
 
-                String loginSt=loginEdit.getText().toString();
-                String passwordSt=passwordEdit.getText().toString();
-                String name=nameEdit.getText().toString();
-                String surname=surnameEdit.getText().toString();
+                String loginSt = loginEdit.getText().toString();
+                String passwordSt = passwordEdit.getText().toString();
+                String name = nameEdit.getText().toString();
+                String surname = surnameEdit.getText().toString();
 
-                List<String> dataToSend=new ArrayList<>();
+                List<String> dataToSend = new ArrayList<>();
                 dataToSend.add(name);
                 dataToSend.add(surname);
                 dataToSend.add(loginSt);
                 dataToSend.add(passwordSt);
 
 
-                NetworkService service=new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
+                NetworkService service = new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
 
-                Thread request=new Thread(new UserRegisterRequestRunnable(service.getMySocket(),myHandler,dataToSend));
-                Thread response=new Thread(new UserRegistrationResponceRunnable(service.getMySocket(),myHandler));
+                Thread request = new Thread(new UserRegisterRequestRunnable(service.getMySocket(),myHandler,dataToSend));
+                Thread response = new Thread(new UserRegistrationResponceRunnable(service.getMySocket(),myHandler));
                 request.start();
                 response.start();
         });
@@ -287,14 +287,14 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private boolean checkWarnings()
     {
-        if(nameEdit.getText().toString().length()==0||surnameEdit.getText().toString().length()==0||
-                loginEdit.getText().toString().length()==0||passwordEdit.getText().toString().length()==0||confirmPasswordEdit.getText().toString().length()==0)
+        if(nameEdit.getText().toString().length() == 0 || surnameEdit.getText().toString().length() == 0 ||
+                loginEdit.getText().toString().length() == 0 || passwordEdit.getText().toString().length() == 0 || confirmPasswordEdit.getText().toString().length() == 0 )
         {
             Toast.makeText(getApplicationContext(),"Please,fill in the lines!", Toast.LENGTH_SHORT).show();
             return true;
         }
-        if(loginLayout.getError()!=null||passwordLayout.getError()!=null||confirmPasswordLayout.getError()!=null||
-                nameLayout.getError()!=null||surnameLayout.getError()!=null) {
+        if(loginLayout.getError() != null || passwordLayout.getError() != null || confirmPasswordLayout.getError() != null ||
+                nameLayout.getError() != null || surnameLayout.getError() != null) {
             Toast.makeText(getApplicationContext(),"Check your data!", Toast.LENGTH_SHORT).show();
             return true;
         }

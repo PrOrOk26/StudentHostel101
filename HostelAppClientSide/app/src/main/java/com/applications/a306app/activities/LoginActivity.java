@@ -28,7 +28,7 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String TAG="LoginActivity";
+    private static final String TAG = "LoginActivity";
     private EditText loginView;
     private EditText passwordView;
     private Handler myHandler;
@@ -36,9 +36,9 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox rememberSignInBox;
 
 
-    private static final String LOGIN="LOGIN";
-    private static final String PASSWORD="PASSWORD";
-    private static final String BOX_STATE="BOX_STATE";
+    private static final String LOGIN = "LOGIN";
+    private static final String PASSWORD = "PASSWORD";
+    private static final String BOX_STATE = "BOX_STATE";
 
 
 
@@ -49,11 +49,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginView=(EditText)findViewById(R.id.editText7);
-        passwordView=(EditText)findViewById(R.id.editText8);
-        rememberSignInBox=findViewById(R.id.checkBoxSignIn);
+        loginView = (EditText)findViewById(R.id.editText7);
+        passwordView = (EditText)findViewById(R.id.editText8);
+        rememberSignInBox = findViewById(R.id.checkBoxSignIn);
 
-        myHandler=new HandleServer()
+        myHandler = new HandleServer()
         {
             @Override
             public void handleMessage(Message msg)
@@ -67,11 +67,10 @@ public class LoginActivity extends AppCompatActivity {
                         if(testString.equals(HandleServerResponseConstants.TAGS_LOGIN_VALIDATION_RESPONCE_ALLOWED)) {
                             Toast.makeText(getApplicationContext(), testString, Toast.LENGTH_SHORT).show();
 
-                            Intent intent =new Intent(getApplicationContext(),TasksActivity.class);
+                            Intent intent = new Intent(getApplicationContext(),TasksActivity.class);
                             startActivity(intent);
                         }
-                        else
-                        {
+                        else {
                             Toast.makeText(getApplicationContext(), testString, Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -79,10 +78,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
-        registrationButton=(Button)findViewById(R.id.registration);
+        registrationButton = (Button)findViewById(R.id.registration);
 
-        registrationButton.setOnClickListener((View view)->{
-                Intent registrationIntent=new Intent(getApplicationContext(),RegistrationActivity.class);
+        registrationButton.setOnClickListener((View view) -> {
+                Intent registrationIntent = new Intent(getApplicationContext(),RegistrationActivity.class);
                 startActivity(registrationIntent);
         });
 
@@ -112,8 +111,8 @@ public class LoginActivity extends AppCompatActivity {
     public void checkInputLoginPassword(View view)
     {
 
-        String loginSt=loginView.getText().toString();
-        String passwordSt=passwordView.getText().toString();
+        String loginSt = loginView.getText().toString();
+        String passwordSt = passwordView.getText().toString();
 
         if(areWarningsExist())
             return;
@@ -136,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean areWarningsExist()
     {
-        if(loginView.getText().toString().length()==0||passwordView.getText().toString().length()==0)
+        if(loginView.getText().toString().length() == 0 || passwordView.getText().toString().length() == 0)
         {
             Toast.makeText(getApplicationContext(),"Please,fill in the lines!", Toast.LENGTH_SHORT).show();
             return true;
@@ -161,19 +160,19 @@ public class LoginActivity extends AppCompatActivity {
 
     private void validateUser()
     {
-        String loginSt=loginView.getText().toString();
-        String passwordSt=passwordView.getText().toString();
+        String loginSt = loginView.getText().toString();
+        String passwordSt = passwordView.getText().toString();
 
-        List<String> dataToSend=new ArrayList<>();
+        List<String> dataToSend = new ArrayList<>();
         dataToSend.add(loginSt);
         dataToSend.add(passwordSt);
 
         Log.d("Password",passwordSt);
 
-        NetworkService service=new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
+        NetworkService service = new NetworkService(HandleServer.HandleServerResponseConstants.DPORT, HandleServer.HandleServerResponseConstants.IP_ADDRESS);
 
-        Thread request=new Thread(new UserValidationRequestRunnable(service.getMySocket(),myHandler,dataToSend));
-        Thread response=new Thread(new UserValidationResponseRunnable(service.getMySocket(),myHandler));
+        Thread request = new Thread(new UserValidationRequestRunnable(service.getMySocket(),myHandler,dataToSend));
+        Thread response = new Thread(new UserValidationResponseRunnable(service.getMySocket(),myHandler));
         request.start();
         response.start();
     }
